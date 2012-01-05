@@ -1,0 +1,87 @@
+This file explains the formats for the various agent config files.
+
+
+=========================AGENT CONFIG FILE FORMAT===============================
+
+* First line is number of agents: int
+
+* Second line is the Latitude for NW: double
+    Default Value for Bangalore: 77.574362
+
+* Third line is the Longitude for NW: double
+    Default Value for Bangalore: 12.998044
+
+* Fourth line is the Latitude for SE: double
+    Default Value for Bangalore: 77.634308
+
+* Fifth line is the Latitude for NW: double
+    Default Value for Bangalore: 12.958694
+
+* Sixth Line is the number of Person Care Taker agents: int
+
+========================MACHINE CONFIG FILE FORMAT==============================
+This file contains details for establishing communication among CTAs
+
+*Each line if of the following type:
+
+type : QueueName : UserName : Password : VirtualHost : Port : Exchange : RoutingKey
+
+- type is the type of host: int
+  People CTA = 1
+  Vehicle CTA = 2
+  Traffic Light CTA = 3
+  See Constants.java for more details.
+
+- QueueName is the name of the RabbitMQ queue that the CAT creates : String
+- UserName is the username to access the RabbitMQ queue: String
+- Password is the password corresponding to UserName to access the RabbitMQ queue: String
+- VirtualHost is the name of the VirtualHost on the RabbitMQ server: String
+- Port is the port on which the RabbitMQ server is running.
+- RoutingKey is the routing key used for communication using rabbitMQ queues: String
+
+
+=======================DISASTER CONFIG FILE FORMAT==============================
+Information on disasters
+
+* First line is number of disasters.
+* The disaster configuration is stored in the following form.
+
+  lat : lon : intensity : time
+
+- lat the latitude of the disaster: double
+- lon the logitude of the disaster: double
+- intensity the intensity of disaster: int
+- time after which disaster will be triggered
+
+=======================HOSPITAL CONFIG FILE FORMAT==============================
+Information on hospitals
+
+* First line is number of hospital facilities.
+* The hospital configuration is stored in the following form
+
+    name : address : capacity
+
+- lat the latitude of the disaster: double
+- lon the longitude of the disaster: double
+- name the name of the hospital: String
+- address the address of the hospital: String
+- capacity the capacity of patients that the hospital can hold: int
+
+========================VEHICLE CONFIG FILE FORMAT==============================
+Information on Vehicles
+
+The only line in the file defines the number of civilian vehicles.
+
+========================EMERGENCY VEHICLE CONFIG FILE FORMAT==============================
+Information on Emergency vehicles.
+* Each line is about the type of vehicle.
+The type is interpreted as follows:
+1 Ambulance
+2 Police
+3 Fire
+* The Ambulance vehicle line contains the number of ambulance in each hospital seperated by a ":"
+    example given 2 hospitals the ambulance line will look like 5:5
+Full example:
+5:6:9:0
+3
+2
