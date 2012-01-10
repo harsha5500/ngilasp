@@ -51,6 +51,7 @@ import org.postgis.Point;
 public class VehicleCTA extends CareTakerAgent {
 
     HashMap<String, CustomStyle> vehicleStyles = new HashMap<String, CustomStyle>();
+    
     /**
      * Total number of civilian vehicles
      */
@@ -203,7 +204,7 @@ public class VehicleCTA extends CareTakerAgent {
         sendReadyForTick();
         Utilities.Log.logger.info(agents.size() + " yet to reach home");
         //kmlUtility.addPlacemarks(agentLocations, agentStyles, currentTickNumber);
-        kmlUtility.addPlacemarks(agentLocations, agents, "vehicle", agentStyles, this.getCurrentTickNumber());
+         kmlUtility.addPlacemarks(agentLocations, agents, "vehicle", agentStyles,this.getCurrentTickNumber());
         if (currentTickNumber % 50 == 0) {
             writeKMLFile("vehicle");
             kmlUtility = new KmlUtility(vehicleStyles);
@@ -342,7 +343,7 @@ public class VehicleCTA extends CareTakerAgent {
      * vehicle agents
      */
     private void createStyles() {
-
+        
         CustomStyle defaultVehicle = new CustomStyle(Constants.VEHICLE_SCALE, Constants.VEHICLE_DEFAULT_IMAGE);
 
         //TODO change key (strings) to constants  
@@ -394,21 +395,19 @@ public class VehicleCTA extends CareTakerAgent {
         activateAgentBehaviour();
         agentLocations = new ArrayList<Location>();
         agentStyles = new ArrayList<String>();
-
         while (checkIfAllAgentsReadyForNextTick()) {
 
             //Check if agent a given agent has reached the home base
-            for (int i = 0; i < agents.size(); i++) {
+            for (int i = agents.size() - 1; i > -1; i--) {
                 if (((Vehicle) agents.get(i)).getAttributes().isAgentHome) {
-                    agents.get(i).statusFlag = true;
                     agents.remove(i);
-                    i--;
-                    //continue;
-                } else {
-                    agents.get(i).statusFlag = false;
-                    agentLocations.add(new Location(((Vehicle) agents.get(i)).getCurrentLocation(), ""));
-                    agentStyles.add(((Vehicle) agents.get(i)).getAttributes().TYPE);
+                    i = agents.size() - 1;
+                    continue;
                 }
+
+                agents.get(i).statusFlag = false;
+                agentLocations.add(new Location(((Vehicle) agents.get(i)).getCurrentLocation(), ""));
+                agentStyles.add(((Vehicle) agents.get(i)).getAttributes().TYPE);
 
             }
             //String stamp = new SimpleDateFormat("hh-mm-ss-aaa_dd-MMMMM-yyyy").format(new Date()).toString();
@@ -592,7 +591,7 @@ public class VehicleCTA extends CareTakerAgent {
         }
     }
 
-    /**
+   /**
      * Restores the state of this CTA from a file. Thsi will restore all objects of the CTA saved previously.
      * The CTA will continue running from the point where state was restored, at the point in the file where it was previously saved
      * @param filename
