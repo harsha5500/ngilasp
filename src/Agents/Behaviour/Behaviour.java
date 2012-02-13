@@ -1,23 +1,19 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Agents.Behaviour;
 
 import Agents.Attributes.AgentAttributes;
 import java.io.Serializable;
 
 /**
- * The behavior mechanism is implemented through 'Composite' design pattern.
- * @author sagar
+ * The behavior is a single task that can be run. Each task is thus stated as Serializable to allow for running multiple
+ * behaviours as a group of java threads.
+ * @author bubby
  */
 public interface Behaviour extends Serializable{
 
     /**
-     * The logic of the behaiour
+     * Each behaviour is run as a single thread.
      * 
-     * @param agentAttributes
+     * @param agentAttributes the attribute values required to execute the behaviour.
      */
     public void run(AgentAttributes agentAttributes);
 

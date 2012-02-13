@@ -1,17 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Agents.Attributes;
 
 import java.io.Serializable;
 
 /**
- *
- * @author sagar
+ * This is a class that defines all the attributes of the agent.
+ * @author bubby
  */
 public class AgentAttributes implements Serializable{
-    
+
+    //TODO: Define agent attributes as a generic list or link list.
 
 }

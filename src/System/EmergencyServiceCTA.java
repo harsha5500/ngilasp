@@ -1,10 +1,6 @@
 package System;
 
 import Agents.Agent;
-import Agents.Behaviour.AmbulanceMoveBehaviour;
-import Agents.Behaviour.FireMoveBehaviour;
-import Agents.Behaviour.PoliceMoveBehaviour;
-import Agents.EmergencyService;
 import Agents.Person;
 import Agents.Vehicle;
 import Entity.CustomStyle;

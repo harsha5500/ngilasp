@@ -1,11 +1,9 @@
 package Agents.Universe;
 
 /**
- * Created by IntelliJ IDEA.
- * User: bubby
- * Date: 2/12/12
- * Time: 11:34 PM
- * To change this template use File | Settings | File Templates.
+ * This class implements a two dimensional space in which the agent exists.
+ * @version 0.1
+ * @author bubby
  */
 public class Universe2D {
 }

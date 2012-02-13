@@ -2,7 +2,6 @@ package System;
 
 import Agents.Agent;
 import Agents.Person;
-import Agents.TrafficLightHub;
 import Database.Sql;
 import Entity.CustomStyle;
 import Entity.Disaster;
