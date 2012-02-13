@@ -1,0 +1,30 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/JavaAPIforKml.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/gekmllib.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jsr173_1.0_api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/activation.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/postgresql-8.4-701.jdbc4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-cli-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-beanutils-core.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/rabbitmq-client.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jaxb-impl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-collections-3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-logging.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/log4j-1.2.15.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JAXB2_20090708.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jaxb-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/c3p0-0.9.1-pre6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-beanutils-bean-collections.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-beanutils.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jaxb-impl-2.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/wkb4j-1.0-RC1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/postgis_1.3.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-digester-1.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-io-1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
