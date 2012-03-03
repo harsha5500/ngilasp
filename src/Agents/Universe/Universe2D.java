@@ -5,5 +5,5 @@ package Agents.Universe;
  * @version 0.1
  * @author bubby
  */
-public class Universe2D {
+public class Universe2D extends Universe{
 }

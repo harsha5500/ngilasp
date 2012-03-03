@@ -16,8 +16,6 @@ import java.io.Serializable;
  * @author bubby
  */
 
-//TODO implement both types of agents.
-
 abstract public class Agent extends Thread implements Serializable {
 
     /*
@@ -25,15 +23,17 @@ abstract public class Agent extends Thread implements Serializable {
      */
     private String AID;
     /*
-     * The flag to indicate if the final objective for the agent is complete
+     * The flag to indicate if the final objective for the agent is complete. This flag determines the life span of
+     * an agent.
      */
     private boolean objectiveFlag;
     /*
-     * Status of the agent for this particular run
+     * Status of the agent. Agents may have have different status as prescribed in a simulation. The simulation itself
+     * may be driven by this flag. This flag determines if an agent has completed one iteration of its behaviour.
      */
     private boolean statusFlag;
     /*
-     * The behaviour for this agent
+     * The behaviours for this agent
      */
     public CompositeBehaviour behaviour = null;
 
@@ -47,14 +47,17 @@ abstract public class Agent extends Thread implements Serializable {
         return AID;
     }
 
+    /* Return the agent's current objective status */
     public boolean getObjectiveFlag() {
         return objectiveFlag;
     }
 
+    /* Return the status of the agent */
     public boolean getStatusFlag() {
         return statusFlag;
     }
 
+    /* Set the current status flag for an agent*/
     public void setStatusFlag(boolean status){
         statusFlag = status;
     }
