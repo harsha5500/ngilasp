@@ -1,17 +1,13 @@
 package Utilities;
 
 import Agents.Agent;
-import Agents.Attributes.PersonAttributes;
 import Agents.Person;
 import Entity.CustomStyle;
 import GeographicInformation.Location;
-import com.keithpower.gekmlib.Folder;
 import de.micromata.opengis.kml.v_2_2_0.ColorMode;
-import de.micromata.opengis.kml.v_2_2_0.Coordinate;
 import de.micromata.opengis.kml.v_2_2_0.Data;
 import de.micromata.opengis.kml.v_2_2_0.Document;
 import de.micromata.opengis.kml.v_2_2_0.ExtendedData;
-import de.micromata.opengis.kml.v_2_2_0.Feature;
 import de.micromata.opengis.kml.v_2_2_0.IconStyle;
 import de.micromata.opengis.kml.v_2_2_0.Kml;
 import de.micromata.opengis.kml.v_2_2_0.MultiGeometry;
@@ -30,7 +26,6 @@ import java.util.List;
 import java.util.Set;
 import org.w3c.dom.*;
 import javax.xml.parsers.*;
-import org.xml.sax.*;
 
 /**
  * This is a singleton class. Use getInstance to get a object.
@@ -50,23 +45,39 @@ public class KmlUtility implements Serializable {
     private String previousTimeStamp = "";
     private long epochTime = 1262307661;
 
+    /**
+     * 
+     */
     public KmlUtility() {
         createKML();
         date = new Date(epochTime);
     }
 
+    /**
+     * 
+     * @param url
+     */
     public KmlUtility(String url) {
         isIconDefault = false;
         createKML(url);
         date = new Date(epochTime);
     }
 
+    /**
+     * 
+     * @param styleMap
+     */
     public KmlUtility(HashMap<String, CustomStyle> styleMap) {
         createKML(styleMap);
         date = new Date(epochTime);
 
     }
 
+    /**
+     * 
+     * @param args
+     * @throws FileNotFoundException
+     */
     public static void main(String[] args) throws FileNotFoundException {
 
         KmlUtility kmlUtility = new KmlUtility();
@@ -122,6 +133,11 @@ public class KmlUtility implements Serializable {
 
     }
 
+    /**
+     * 
+     * @param filename
+     * @return
+     */
     public boolean writeFile(String filename) {
         try {
 
@@ -139,6 +155,10 @@ public class KmlUtility implements Serializable {
 
     }
 
+    /**
+     * 
+     * @param locations
+     */
     public void printLocations(ArrayList<Location> locations) {
 
 
@@ -150,17 +170,31 @@ public class KmlUtility implements Serializable {
         }
     }
 
+    /**
+     * 
+     * @param styleMap
+     * @return
+     */
     public static KmlUtility getInstanse(HashMap<String, CustomStyle> styleMap) {
 
         return new KmlUtility(styleMap);
     }
 
+    /**
+     * 
+     * @param url
+     * @return
+     */
     public static KmlUtility getInstanse(String url) {
 
 
         return new KmlUtility(url);
     }
 
+    /**
+     * 
+     * @return
+     */
     public static KmlUtility getInstanse() {
 
         return new KmlUtility();
@@ -224,6 +258,11 @@ public class KmlUtility implements Serializable {
 
     }
 
+    /**
+     * 
+     * @param latLons
+     * @param tick
+     */
     public void addPlacemarks(ArrayList<Location> latLons, int tick) {
         String startTime = getTimeFromTicks(tick);
         String endTime = getTimeFromTicks(tick + 1);
@@ -243,6 +282,10 @@ public class KmlUtility implements Serializable {
         }
     }
 
+    /**
+     * 
+     * @param latLons
+     */
     public void addPlacemarks(ArrayList<Location> latLons) {
 
         Placemark placemark;
@@ -273,6 +316,14 @@ public class KmlUtility implements Serializable {
 
     }
 
+    /**
+     * 
+     * @param latLons
+     * @param agents
+     * @param agentType
+     * @param styleNames
+     * @param tick
+     */
     public void addPlacemarks(ArrayList<Location> latLons, List<Agent> agents, String agentType, ArrayList<String> styleNames, int tick) {
 
         System.out.println("size :" + latLons.size() + " " + agents.size() + " " + styleNames.size());
@@ -319,6 +370,12 @@ public class KmlUtility implements Serializable {
         }
     }
 
+    /**
+     * 
+     * @param latLons
+     * @param styleNames
+     * @param tick
+     */
     public void addPlacemarks(ArrayList<Location> latLons, ArrayList<String> styleNames, int tick) {
 
 
@@ -340,6 +397,11 @@ public class KmlUtility implements Serializable {
         }
     }
 
+    /**
+     * 
+     * @param tick
+     * @return
+     */
     public String getTimeFromTicks(int tick) {
 
         Date date = new Date(tick * 1000);
@@ -377,6 +439,11 @@ public class KmlUtility implements Serializable {
 
     }
 
+    /**
+     * 
+     * @param latLons
+     * @param styleNames
+     */
     public void addPlacemarks(ArrayList<Location> latLons, ArrayList<String> styleNames) {
 
 
@@ -398,6 +465,11 @@ public class KmlUtility implements Serializable {
         }
     }
 
+    /**
+     * 
+     * @param latLons
+     * @param styleName
+     */
     public void addPlacemarks(ArrayList<Location> latLons, String styleName) {
 
         Placemark placemark = new Placemark().withStyleUrl("#" + styleName);
@@ -439,6 +511,10 @@ public class KmlUtility implements Serializable {
         }
     }
 
+    /**
+     * 
+     * @param dir
+     */
     public void OrderDataByAgent(String dir) {
 
 
@@ -467,6 +543,10 @@ public class KmlUtility implements Serializable {
 
     }
 
+    /**
+     * 
+     * @param filename
+     */
     public void readKML(String filename) {
 //        Kml unmarshal = Kml.unmarshal(new File(filename));
 //        Document document = (Document) unmarshal.getFeature();
@@ -541,6 +621,12 @@ public class KmlUtility implements Serializable {
     }
 
 
+    /**
+     * 
+     * @param nodeList
+     * @param type
+     * @return
+     */
     public ArrayList<Node> getNodesWithType(NodeList nodeList, int type){
 
         ArrayList<Node> returnNodeList = new ArrayList<Node>();

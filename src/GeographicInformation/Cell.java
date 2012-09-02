@@ -43,42 +43,83 @@ public class Cell extends Location implements Serializable {
         this.occupied = occupied;
     }
 
+    /**
+     * 
+     * @return
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * 
+     * @param id
+     */
     public void setId(long id) {
         this.id = id;
     }
 
+    /**
+     * 
+     * @return
+     */
     public long getRoadId() {
         return roadId;
     }
 
+    /**
+     * 
+     * @param roadId
+     */
     public void setRoadId(long roadId) {
         this.roadId = roadId;
     }
 
+    /**
+     * 
+     * @return
+     */
     public boolean isSpecial() {
         return special;
     }
 
+    /**
+     * 
+     * @param special
+     */
     public void setSpecial(boolean special) {
         this.special = special;
     }
 
+    /**
+     * 
+     */
     public Cell() {
     }
 
     
 
 
+    /**
+     * 
+     * @param id
+     * @param roadId
+     * @param occupied
+     */
     public Cell(long id, long roadId, boolean occupied) {
         this.id = id;
         this.roadId = roadId;
         this.occupied = occupied;
     }
 
+    /**
+     * 
+     * @param latLon
+     * @param name
+     * @param id
+     * @param roadId
+     * @param occupied
+     */
     public Cell(Point latLon, String name, long id, long roadId, boolean occupied) {
         super(latLon, name);
         this.id = id;
@@ -90,7 +131,7 @@ public class Cell extends Location implements Serializable {
 
     /**
      * Create a cell object with a location object and its status
-     * @param point the location indicated in the cell
+     * @param location 
      * @param occupied the status of the cell true means occupied
      * @see Location
      */
@@ -115,6 +156,11 @@ public class Cell extends Location implements Serializable {
         this.occupied = occupied;
     }
 
+    /**
+     * 
+     * @param occupied
+     * @return
+     */
     public boolean updateOccupiedFlagInDB(boolean occupied){
         return Sql.setOccupiedFlag("lanecells", id, occupied);
     }

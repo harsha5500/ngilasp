@@ -59,6 +59,17 @@ public class Location implements Serializable {
     }
 
     /**
+     * This method sets the location as point by passing the latitude and 
+     * longitude values as doubles. This avoids passing a Point object and thus 
+     * abstracts all subsequent classes from importing the postgis package.
+     * @param lat the latitude value
+     * @param lon  the longitude value
+     */
+    public void setLatLon(double lat, double lon) {
+        this.latLon = new Point(lat, lon);
+    }
+
+    /**
      * Return the name of the location
      * @return name of the location
      */

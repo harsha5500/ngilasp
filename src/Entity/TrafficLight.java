@@ -41,7 +41,7 @@ public class TrafficLight implements Serializable {
 
     /**
      * Constructor for TrafficLight. The parameters are stored in the database
-     * @param color the current signal being displayed, RED or GREEN
+     * @param light 
      * @param location the cell location of the traffic color
      * @param duration the duration of the signal being displayed before its change
      * @param currentStep the current tick count before the signal is changed
@@ -218,7 +218,7 @@ public class TrafficLight implements Serializable {
 
     /**
      * Set the current Step in the counter to change the signal.
-     * @param currentDurationStep current Step in the counter to change the signal.
+     * @param currentStep 
      */
     public void setCurrentStep(int currentStep) {
         this.currentDurationStep = currentStep;

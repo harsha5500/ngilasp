@@ -66,14 +66,26 @@ public class GenerateAttributes {
         return loc;
     }
 
+    /**
+     * 
+     * @return
+     */
     public static IdPointPair generateIdPointPairOnRoad() {
         return Sql.getIdPointPairOnRoad();
     }
 
+    /**
+     * 
+     * @return
+     */
     public static Point generatePointOnRoad() {
         return Sql.getPointOnRoad();
     }
 
+    /**
+     * 
+     * @return
+     */
     public static Location generateVehicleHomeBase() {
 
         Point point = Sql.getPointOnRoad();

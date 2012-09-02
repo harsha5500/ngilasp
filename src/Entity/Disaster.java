@@ -21,6 +21,9 @@ public class Disaster implements Serializable {
     /*
      * Time in ticks after which the disaster is triggered
      */
+    /**
+     * 
+     */
     public int disasterTriggerTimeInTicks;
     /**
      * The time tick at which the disaster occured
@@ -32,6 +35,7 @@ public class Disaster implements Serializable {
      * The constructor returns a disaster in the given location of a set intensity.
      * @param latlon the location of the disaster.
      * @param intensity the intensity of the disaster.
+     * @param start  
      */
     public Disaster(Point latlon, int intensity, int start) {
         this.latlon = latlon;
@@ -51,6 +55,24 @@ public class Disaster implements Serializable {
         this.intensity = intensity;
         this.disasterTriggerTimeInTicks = disasterTriggerTimeInTicks;
         this.tick = tick;
+    }
+
+    /**
+     * TODO: Abstract out Point Objects from non essential classes.
+     */
+    /**
+     * This is a constructor that avoids accepting the Point object for location
+     * This allows other depending classes from importing Point which is specific
+     * to postgis.
+     * @param lat
+     * @param lon
+     * @param intensity
+     * @param start 
+     */
+    public Disaster(double lat, double lon, int intensity, int start) {
+        this.latlon = new Point(lat, lon);
+        this.intensity = intensity;
+        this.disasterTriggerTimeInTicks = start;
     }
 
     /**

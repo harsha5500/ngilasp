@@ -34,6 +34,8 @@ public class Vehicle extends Agent {
      * @param curloc The current location of the vehicle.
      * @param spd The current speed with which the vehicle moves.
      * @param type The type of vehicle.
+     * @param startcellId 
+     * @param homebaseId 
      * @throws InstantiationException Agentattribution initialization error
      */
     public Vehicle(int mycap, int curload, Location home, Cell curloc, int spd, String type, long startcellId, long homebaseId) throws InstantiationException {
@@ -153,7 +155,7 @@ public class Vehicle extends Agent {
 
     /**
      * Set the home status flag for vehicle agent.
-     * @param isAgentHome status flag to check if an agent is home
+     * @param isHome 
      */
     public void setIsHome(boolean isHome) {
         this.attributes.setIsHome(isHome);

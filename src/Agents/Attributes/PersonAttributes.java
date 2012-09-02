@@ -68,9 +68,15 @@ public class PersonAttributes extends AgentAttributes {
      * Integer value for health after which agent shall not be able to move
      * This has to be modified later on in order to be more descriptive about the type of injury and the kind of help needed
      */
+    /**
+     * 
+     */
     public final static int CRITICAL_HEALTH = 30;
     /*
      * Agent's home
+     */
+    /**
+     * 
      */
     public Location homeBase;
 
@@ -102,6 +108,9 @@ public class PersonAttributes extends AgentAttributes {
     
     /*
      * Shortest path to home based on certain criteria
+     */
+    /**
+     * 
      */
     public ArrayList<Cell> bestRouteToHome;
 
@@ -247,6 +256,11 @@ public class PersonAttributes extends AgentAttributes {
         }
     }
 
+    /**
+     * 
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -263,11 +277,19 @@ public class PersonAttributes extends AgentAttributes {
         }
     }
 
+    /**
+     * 
+     * @return
+     */
     @Override
     public int hashCode() {
         return super.hashCode();
     }
 
+    /**
+     * 
+     * @return
+     */
     @Override
     public String toString() {
         return "CURIOSITY: " + CURIOSITY + " HEALTH: " + HEALTH + " HERDFACTOR: " + HERDFACTOR + " PANIC: " + PANIC + " TRUST: " + TRUST + " Home: " + homeBase.toString() + "Current Location: " + currentLocation.toString();

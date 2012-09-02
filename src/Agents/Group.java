@@ -155,6 +155,10 @@ public class Group extends Agent {
         return nearest;
     }
 
+    /**
+     * 
+     * @return
+     */
     @Override
     public String toString() {
         String peopleattribs = null;

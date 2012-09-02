@@ -84,6 +84,13 @@ public class Hospital extends Facility {
         this.listOfPatients = new ArrayList<Person>();
     }
 
+    public Hospital(double lat, double lon, String name, int capacity) {
+        this.latlon = new Point(lat, lon);
+        this.name = name;
+        this.capacity = capacity;
+        this.listOfPatients = new ArrayList<Person>();
+    }
+
     /**
      * Returns the cell id of the hospital
      * @return the cell id of the hospital

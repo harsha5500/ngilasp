@@ -31,7 +31,7 @@ public class TrafficLightHub extends Agent {
     /**
      * Constructor to create a TrafficLightHub. The constuctor will also generate the
      * TrafficLights the Hub controls.
-     * @param hubId the ID of the TrafficLightHub to be created.
+     * @param trafficLightHubID 
      */
     public TrafficLightHub(int trafficLightHubID) {
         this.hubId = trafficLightHubID;

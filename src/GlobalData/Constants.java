@@ -13,7 +13,7 @@ public interface Constants {
     /**
      * The local system IP address
      */
-    public final String localHost = "192.168.0.12";
+    public final String localHost = "192.168.18.173";
     /**
      * The file name for the launch settings containg values for bounding boxes
      */

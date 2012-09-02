@@ -8,9 +8,7 @@ import Agents.Attributes.AgentAttributes;
 import Agents.Attributes.PersonAttributes;
 import Entity.Hospital;
 import GlobalData.Constants;
-import GlobalData.DisasterLocations;
 import GlobalData.SharedData;
-import GeographicInformation.Location;
 import java.util.Iterator;
 import org.postgis.Point;
 

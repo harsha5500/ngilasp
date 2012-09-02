@@ -5,3 +5,13 @@ This is a fork of the open source agent simulation platform
 http://ngilasp.sourceforge.net . I was involved in the development of
 the original platform and have forked the project to take it to new
 fun places!
+
+Gestalt is a agent based simulation platform. It is designed to run large scale agent based simulations by being highly modular. Everything in Gestalt is a module except for the most basic necessities. 
+
+Gestalt was developed by the Center for Study of Science, Technology and Policy (http://cstep.in/) as a prototype for one of the projects.
+
+"Gestalt" is a structure, configuration, or pattern of physical, biological, or psychological phenomena so integrated as to constitute a functional unit with properties not derivable by summation of its parts. 
+
+Webster definition Gestalt psychology on Wikipedia
+
+Gestalt is licensed under the Mozilla Public License 1.1

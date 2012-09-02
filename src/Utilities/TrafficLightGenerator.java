@@ -13,6 +13,10 @@ import Agents.TrafficLightHub;
  */
 public class TrafficLightGenerator {
 
+    /**
+     * 
+     * @return
+     */
     public static TrafficLightHub generate(){
 
         TrafficLightHub trafficLightHub = new TrafficLightHub();

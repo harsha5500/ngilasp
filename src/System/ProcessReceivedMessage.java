@@ -10,7 +10,6 @@ import GlobalData.CTANetwork;
 import Messaging.Message;
 import Messaging.QueueUser;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,23 +18,42 @@ import java.util.List;
  */
 public class ProcessReceivedMessage extends Thread implements QueueUser, Serializable {
 
+    /**
+     * 
+     */
     public List<Agent> agents;
+    /**
+     * 
+     */
     public Message message;
 
+    /**
+     * 
+     */
     public ProcessReceivedMessage() {
         Utilities.Log.logger.info("Created Message Receiver");
         
     }
 
+    /**
+     * 
+     */
     public void run() {
         receivedMessage();
     }
 
 
+    /**
+     * 
+     * @param message
+     */
     public void receivedMessageHelper(Message message) {
         this.message = message;
     }
 
+    /**
+     * 
+     */
     public void receivedMessage() {
         //update status of the host from which message was received
         Utilities.Log.logger.info("PeopleCTA: ReceivedMessage");

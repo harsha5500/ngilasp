@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Agents;
 
 import Agents.Behaviour.CompositeBehaviour;
@@ -15,25 +11,24 @@ import java.io.Serializable;
  */
 abstract public class Agent extends Thread implements Serializable {
 
-    /*
-     * Unique Identifier for each agent
-     */
+    /** A unique identifier for each individual agent.*/
     String AID;
-    /*
-     * The flag to indicate if the final objective for the agent is complete
+    
+    /**
+     * The flag to indicate if the final objective for the agent is complete.
      */
     public boolean objectiveFlag;
-    /*
-     * Status of the agent for this particular run
-     */
+    
+    /** The status of the agent for this particular run. */
     public boolean statusFlag;
-    /*
-     * The behaviour for this agent
+    
+    /** The behaviour for this agent which is a composition of different 
+     * behaviours.
      */
     public CompositeBehaviour behaviour = null;
 
     /**
-     * returns the agent id
+     * returns an agent's unique identifier.
      * @return returns the agent id.
      */
     public String getAID() {

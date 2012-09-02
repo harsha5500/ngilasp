@@ -17,9 +17,10 @@ import org.postgis.Point;
 
 /**
  * This class defines a emergency service agent. This is essentially a emergency
- * vehicle i.e. police, fire or an ambulance. This agent has the same attributes
- * as that of a Vehicle agents and a few extra paramenters. The agent behaviour
- * will depend on the type of emergency service the agent is rendering
+ * vehicle i.e. police, fire or an ambulance. This agent has similar attributes
+ * as that of a Vehicle agent but has a few extra parameters and different 
+ * behaviour and hence is a different class of agent. The agent behaviour will 
+ * depend on the type of emergency service the agent is impersonating.
  * @see Vehicle
  * @see AgentAttributes.VehicleAttributes
  * @see AgentAttributes.EmergencyServiceAttributes
@@ -34,9 +35,9 @@ public class EmergencyService extends Agent {
 
     /**
      * Constructor to create an emergency agent
-     * @param type the type of emergency agent eg. fire, ambulance, etc
+     * @param type the type of emergency agent. Example fire, ambulance, etc.
      * @param myCapacity the number of people the agent can accomodate at a given time
-     * @param speed the speed with which the agnet moves
+     * @param speed the speed with which the agent moves
      * @param currentLoad the current number of people that the agent may be carrying
      * @param home the location of the agent's home base
      * @param currentloc the current location of the agent
@@ -180,7 +181,7 @@ public class EmergencyService extends Agent {
     public void run() {
 
         if (SharedData.isDisasterTriggered) { //Is the disaster Triggered can add &&!statusFlag
-            if (attributes.TYPE.equals(Constants.VEHICLE_TYPE_AMBULANCE)) { //Is type Ambulancec
+            if (attributes.TYPE.equals(Constants.VEHICLE_TYPE_AMBULANCE)) { //Is type Ambulance
                 if (this.getCurrentLocation().equals(attributes.getHospital().getLatLon())) { //Is Agent Idle? i.e. is the currentLocation = HOspital?
                     if (attributes.getPassengers().size() > 0) { // There are some passengers in the ambulance, Drop them off
                         dropInjuredAgentAtHospital();
@@ -235,7 +236,7 @@ public class EmergencyService extends Agent {
 
     /**
      * Only the ambulance calls this method. A free ambulance calls this method
-     * to puick up a critically injured agent form the disaster locations
+     * to pick up a critically injured agent form the disaster locations
      */
     private void pickInjuredAgentFromDisaster() {
         setCurrentLocation(attributes.getHospital().getLatLon()); //Current location is hospital
@@ -357,7 +358,7 @@ public class EmergencyService extends Agent {
 
     /**
      * Set the home status flag for EmergencyService agent.
-     * @param isAgentHome status flag to check if the EmergencyService is home
+     * @param isHome 
      */
     public void setIsHome(boolean isHome) {
         this.attributes.setIsHome(isHome);

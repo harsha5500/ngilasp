@@ -17,7 +17,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -47,6 +46,9 @@ public abstract class CareTakerAgent implements QueueUser, Serializable {
     /*
      *
      */
+    /**
+     * 
+     */
     protected KmlUtility kmlUtility = null;
     /**
      * A list of all agents handled by the CTA
@@ -61,6 +63,10 @@ public abstract class CareTakerAgent implements QueueUser, Serializable {
      */
     public static Map<String, Integer> CTAStatus;
 
+    /**
+     * 
+     * @return
+     */
     public int getCurrentTickNumber() {
         return currentTickNumber;
     }
@@ -78,6 +84,7 @@ public abstract class CareTakerAgent implements QueueUser, Serializable {
 
     /**
      *
+     * @param flag 
      * @return
      */
     public boolean checkIfAllCTAsReadyForNextTick(boolean flag) {
@@ -208,6 +215,7 @@ public abstract class CareTakerAgent implements QueueUser, Serializable {
 
     /**
      *
+     * @param tickNumber 
      */
     public void sendSavingState(int tickNumber) {
         for (String host : CTAStatus.keySet()) {
@@ -358,6 +366,10 @@ public abstract class CareTakerAgent implements QueueUser, Serializable {
         }
     }
 
+    /**
+     * 
+     * @param ctaName
+     */
     protected void writeKMLFile(String ctaName) {
         String stamp = new SimpleDateFormat("hh-mm-ss-aaa_dd-MMMMM-yyyy").format(new Date()).toString();
         //kmlUtility.writeFile();
@@ -365,6 +377,9 @@ public abstract class CareTakerAgent implements QueueUser, Serializable {
 
     }
 
+    /**
+     * 
+     */
     protected void readConfigurations() {
         // Configuration functions
         try {

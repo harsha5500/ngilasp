@@ -11,10 +11,7 @@ import Database.Connections.PoolFactory;
 import Entity.IdPointPair;
 import Entity.TrafficLight;
 
-import GeographicInformation.BoundingBox;
 import GeographicInformation.Cell;
-import GlobalData.Constants;
-import GlobalData.SharedData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -30,10 +27,7 @@ import org.wkb4j.postgis.PostGISFactory;
 import org.postgis.MultiLineString;
 import org.postgis.MultiPoint;
 import org.postgis.Point;
-import Utilities.Log;
 import java.util.StringTokenizer;
-import org.postgis.LinearRing;
-import org.postgis.PGbox2d;
 import org.postgis.Polygon;
 
 /**
@@ -154,7 +148,11 @@ public class Sql {
 
     /**
      * Returns true if operation successful, returns false if flag was already set to true by some other means or if the query failed for some reason.
-    */
+     * @param table 
+     * @param cellId 
+     * @param isOccupied 
+     * @return 
+     */
     public static boolean setOccupiedFlag(String table, long cellId, boolean isOccupied) {
 
         if (isOccupied == true) {
@@ -360,6 +358,13 @@ public class Sql {
 
     }
 
+    /**
+     * 
+     * @param start
+     * @param end
+     * @param distance
+     * @return
+     */
     public static ArrayList<Point> generateLeftLanePoint(Point start, Point end, double distance) {
 
         //System.out.println("entered generateLeftLanePoint");
@@ -396,6 +401,12 @@ public class Sql {
 
     }
 
+    /**
+     * 
+     * @param a
+     * @param b
+     * @return
+     */
     public static boolean arePointsEqual(Point a, Point b) {
 
         double tolerance = 0.000000000000000;
@@ -501,6 +512,7 @@ public class Sql {
 
     /**
      *
+     * @param tableName 
      * @param roadid
      * @param points
      * @return
@@ -800,7 +812,7 @@ public class Sql {
     /**
      * Returns an arraylist of geographical locations from source to destination
      * @param sourceId
-     * @param destinationIdgh
+     * @param destinationId 
      * @return
      */
     public static ArrayList<Cell> getBestPath(long sourceId, long destinationId) {
@@ -893,6 +905,12 @@ public class Sql {
 
     }
 
+    /**
+     * 
+     * @param sourceId
+     * @param destinationId
+     * @return
+     */
     public static ArrayList<Cell> getBestPath2(long sourceId, long destinationId) {
         ArrayList<Cell> path = new ArrayList<Cell>();
 
@@ -1320,6 +1338,11 @@ public class Sql {
 
     }
 
+    /**
+     * 
+     * @param point
+     * @return
+     */
     public static long getNearestPointOnLine(Point point) {
 
         long source = -1;
@@ -1511,6 +1534,14 @@ public class Sql {
 
     }
 
+    /**
+     * 
+     * @param source
+     * @param destinationId
+     * @param costColumn
+     * @param cellTable
+     * @return
+     */
     public static ArrayList<Cell> getBestPathForPerson(Point source, long destinationId, String costColumn, String cellTable) {
         ArrayList<Cell> path = new ArrayList<Cell>();
 
@@ -1657,6 +1688,11 @@ public class Sql {
 
     }
 
+    /**
+     * 
+     * @param pointWKT
+     * @return
+     */
     public static Point getPointFromWKT(String pointWKT) {
 
         String pointStr = pointWKT.substring(6, pointWKT.length() - 1);
@@ -2118,8 +2154,8 @@ public class Sql {
 
     /**
      *
-     * @param geom1
-     * @param geom2
+     * @param point 
+     * @param polygon 
      * @return
      */
     public boolean isGeometryWithinGeometry(Point point, Polygon polygon) {
@@ -2186,7 +2222,10 @@ public class Sql {
 
     /**
      * Split roads into cells
+     * @param sourceTable 
      * @param id
+     * @param cellsTable 
+     * @param sourceGeomName  
      */
     public static void splitIntoCells(String sourceTable, String sourceGeomName, String cellsTable, long id) {
 
@@ -2386,6 +2425,13 @@ public class Sql {
         return slope;
     }
 
+    /**
+     * 
+     * @param vertextId
+     * @param roadsTable
+     * @param searchStartVertices
+     * @return
+     */
     public ArrayList<Long> getRoadsWithVertext(long vertextId, String roadsTable, boolean searchStartVertices) {
 
         Connection conn = null;
@@ -2436,6 +2482,14 @@ public class Sql {
 
     }
 
+    /**
+     * 
+     * @param roads
+     * @param roadTable
+     * @param cellsTable
+     * @param isVertextSource
+     * @return
+     */
     public HashMap<Long, Long> getTerminalCellsFromRoads(ArrayList<Long> roads, String roadTable, String cellsTable, Boolean isVertextSource) {
 
         HashMap<Long, Long> roadsCellMap = new HashMap<Long, Long>();
@@ -2518,6 +2572,13 @@ public class Sql {
 
     }
 
+    /**
+     * 
+     * @param table
+     * @param lat
+     * @param lon
+     * @param id
+     */
     public void insertGeomValue(String table, double lat, double lon, int id) {
 
         Connection conn = null;
@@ -2549,6 +2610,12 @@ public class Sql {
 
     }
 
+    /**
+     * 
+     * @param table
+     * @param latColumn
+     * @param lonColumn
+     */
     public void createGeomFromLatLon(String table, String latColumn, String lonColumn) {
 
 
@@ -2589,6 +2656,14 @@ public class Sql {
 
     }
 
+    /**
+     * 
+     * @param table
+     * @param latColumn
+     * @param lonColumn
+     * @param id
+     * @return
+     */
     public HashMap<String, Double> getLatLonFromTable(String table, String latColumn, String lonColumn, int id) {
         Connection conn = null;
 
@@ -2625,6 +2700,12 @@ public class Sql {
         }
     }
 
+    /**
+     * 
+     * @param vertextId
+     * @param trafficHubsTable
+     * @return
+     */
     public int insertIntoTrafficHubs(long vertextId, String trafficHubsTable) {
 
         Connection conn = null;
@@ -2711,6 +2792,14 @@ public class Sql {
         }
     }
 
+    /**
+     * 
+     * @param roadsCellMap
+     * @param vertextId
+     * @param trafficHubTable
+     * @param trafficLightTable
+     * @return
+     */
     public int storeTrafficHub(HashMap<Long, Long> roadsCellMap, long vertextId, String trafficHubTable, String trafficLightTable) {
 
         int hubId = insertIntoTrafficHubs(vertextId, trafficHubTable);
@@ -2735,6 +2824,15 @@ public class Sql {
 
     }
 
+    /**
+     * 
+     * @param hubTableName
+     * @param trafficLightTableName
+     * @param roadTableName
+     * @param verticesTableName
+     * @param cellsTableName
+     * @return
+     */
     public int generateTrafficLightHub(String hubTableName, String trafficLightTableName, String roadTableName, String verticesTableName, String cellsTableName) {
         int hubId = -1;
         Connection conn = null;
@@ -2807,6 +2905,12 @@ public class Sql {
 
     }
 
+    /**
+     * 
+     * @param roadId
+     * @param roadTable
+     * @return
+     */
     public long getInvertedRoad(long roadId, String roadTable) {
 
         Connection conn = null;

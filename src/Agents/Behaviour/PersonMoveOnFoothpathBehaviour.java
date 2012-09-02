@@ -6,10 +6,6 @@ package Agents.Behaviour;
 
 import Agents.Attributes.AgentAttributes;
 import Agents.Attributes.PersonAttributes;
-import Entity.Hospital;
-import GlobalData.SharedData;
-import java.util.Iterator;
-import org.postgis.Point;
 
 /**
  *

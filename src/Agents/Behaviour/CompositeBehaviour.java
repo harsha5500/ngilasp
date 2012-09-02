@@ -23,10 +23,17 @@ public class CompositeBehaviour implements Behaviour {
         behaviours.add(newBehaviour);
     }
 
+    /**
+     * 
+     * @param newBehaviour
+     */
     public void remove(Behaviour newBehaviour) {
         behaviours.remove(newBehaviour);
     }
 
+    /**
+     * 
+     */
     public void removeall() {
         behaviours.clear();
     }

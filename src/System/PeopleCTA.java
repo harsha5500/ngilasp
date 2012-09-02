@@ -15,7 +15,6 @@ import GlobalData.CTANetwork;
 import GlobalData.Constants;
 import GlobalData.SharedData;
 import Messaging.Message;
-import Messaging.QueueManager;
 import Messaging.QueueParameters;
 import Utilities.GenerateAttributes;
 import Utilities.KmlUtility;
@@ -376,7 +375,7 @@ public class PeopleCTA extends CareTakerAgent {
         }
 
         for (int i = 0; i < SharedData.hospitals.size(); i++) {
-            Utilities.Log.logger.info("Hospital location : " + SharedData.hospitals.get(i).latlon.toString());
+            //Utilities.Log.logger.info("Hospital location : " + SharedData.hospitals.get(i).latlon.toString());
         }
         //Utilities.Log.logger.info("Hospital location : " + SharedData.hospitals.get(1).latlon.toString());
         sendReadyForTick();
@@ -844,6 +843,10 @@ public class PeopleCTA extends CareTakerAgent {
         kmlUtility =new KmlUtility(peopleStyles);
     }
 
+    /**
+     * 
+     * @param message
+     */
     public void receivedMessage(Message message) {
         //update status of the host from which message was received
         while (holdMessages) {

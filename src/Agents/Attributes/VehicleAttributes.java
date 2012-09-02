@@ -62,6 +62,7 @@ public class VehicleAttributes extends AgentAttributes {
 
     /**
      * Initilize the vehicle attributes.
+     * @param type 
      * @param capacity capacity of the vehicle
      * @param speed speed of the vehicle
      * @param homeBase the home base of the vehicle agents
@@ -167,7 +168,7 @@ public class VehicleAttributes extends AgentAttributes {
 
     /**
      * Set the speed of the vehicle.
-     * @param speed speed of the vehicle.
+     * @param SPEED 
      */
     public void setSpeed(int SPEED) {
         this.SPEED = SPEED;

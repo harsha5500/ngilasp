@@ -2,7 +2,6 @@ package Agents;
 
 import Agents.Attributes.*;
 import Agents.Behaviour.CompositeBehaviour;
-import Agents.Behaviour.PersonMoveBehaviour;
 import Agents.Behaviour.PersonMoveOnFoothpathBehaviour;
 import Database.Sql;
 import Entity.Disaster;
@@ -34,8 +33,10 @@ public class Person extends Agent {
     /**
      * Initializes Person object
      * @param initattribs initial person attributes
-     * @param initlocation starting location
+     * @param currentCellLocation 
      * @param initbase home base for the agent
+     * @param homebaseId 
+     * @param startcellId 
      * @throws InstantiationException Agentattribution initialization error
      */
 
@@ -66,12 +67,19 @@ public class Person extends Agent {
 
     }
 
+    /**
+     * 
+     * @return Returns the Person's attributes
+     */
     public PersonAttributes getAttributes() {
         return attributes;
     }
 
     
 
+    /**
+     * 
+     */
     public void getBestPath() {
 
         this.attributes.currentCellIndex = 0;
@@ -79,6 +87,14 @@ public class Person extends Agent {
 
     }
 
+    /**
+     * 
+     * @param startPoint
+     * @param endPoint
+     * @param costColumn
+     * @param cellTable
+     * @return
+     */
     public ArrayList<Cell> getBestPath(Point startPoint, Point endPoint, String costColumn, String cellTable) {
 
         this.attributes.currentCellIndex = 0;
@@ -86,6 +102,14 @@ public class Person extends Agent {
 
     }
 
+    /**
+     * 
+     * @param startPoint
+     * @param endPoinId
+     * @param costColumn
+     * @param cellTable
+     * @return
+     */
     public ArrayList<Cell> getBestPath(Point startPoint, long endPoinId, String costColumn, String cellTable) {
 
         this.attributes.currentCellIndex = 0;
@@ -93,6 +117,10 @@ public class Person extends Agent {
 
     }
 
+    /**
+     * 
+     * @param disaster
+     */
     public void notifyDisaster(Disaster disaster) {
 
         processDisaster(disaster);
