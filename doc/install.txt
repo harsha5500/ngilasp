@@ -1,0 +1,171 @@
+This installation procedure describes the prerequisites, installation and configuration of the agent simulation software. The section describes the following:
+
+* Prerequisite software required
+* Installing the simulation and the platform
+* Configurations
+* Running the simulations
+* Analysis and visualisation of the output
+* Troubleshooting
+* Required Software
+
+This section provides only limited help with the following software. Please refer to their original manuals for further help. The following software are assumed to be installed and working in their standard configurations.
+* Git
+* Oracle Java JDK 1.6 or above / OpenJDK 7
+* NetBeans 6.9 or above
+
+The software listed below needs further attention:
+
+JAXB
+
+JAXB is needed by the JAK (Java API for KML) package. This is a java library require to create Keyhole Markup (KML) files for Google Earth animations. The output produced by the current version of the platform are presented in this format.
+1. Download and unzip JAXB from here : http://jaxb.java.net/
+2. Copy the jar files into the directory of the your Oracle JDK folder here: {java}/lib/ext directory (the JRE installation)
+	+activation.jar
+	+jaxb-api.jar
+	+jaxb-impl.jar
+	+jsr173_1.0_api.jar 
+This operation may require administrative privileges.
+
+Google Earth 5.x
+
+A copy of Google Earth 5 is recommeded as the simulation output is tested with the 5.x versions. Google earth 6 has not performed well with larger simulations so far. Please note that the next release may move away from the KML specific output to a more general format thus, removing the requirement to use Google Earth or installing Jaxb.
+
+PostgreSQL 8.x 9.x
+
+The software is tested for use with any of the 8.x version of PostgreSQL. We have used PostgreSQL9.x as well and seems to be working fine. We use the PGAdmin GUI tool to manage the databases. Further information consult the official documentation for
+http://www.postgresql.org/ and http://www.pgadmin.org/
+
+PostGIS
+PGRouting
+
+Pgrouting performs two operations
+1. It converts a network of edges into a network of nodes.
+2. It allow to run algorithms on the network/graph such as shortest path.
+
+The detailed installation instructions are located http://www.pgrouting.org/docs/1.x/install_ubuntu.html
+
+RabbitMQ
+
+RabbitMQ is an erlang based message queueing server, implementing the AMQP protocols. It is highly a highly tested and widely used system. The message queueing server is used to maintain communicate and control the distributed agent platform.
+http://www.rabbitmq.com/install.html provides instructions for installing a standard server configuration. 
+
+All the above mentioned softwares are required to run the current version of the agent simulation platform.
+
+Installing the Simulation Platform
+
+The platform installation requires the Netbeans IDE. This structure will change in the latter versions to make the platform completely neutral to the IDE. 
+1. Please clone the project from using git:
+
+2. Modify the configurations present in the config folder to reflect the current simulation scenario. Check Confguration below to set up the simulation configuration as well as the interface with the other programs.
+
+3. Run the appropriate CareTakerAgent as per the simulation configuration.
+
+4. Check the kml folder for the output files.
+
+5. Open the kml files in Google Earth to view the results of the simulation.
+
+Configuration
+
+This section explains how to configure the Gestalt large scale agent simulation platform. The configuration has different sections to cover the different parts of the process of setting up a simulation. The configuration system will be simplified in the consecutive releases. The 'config' folder in the checked-out 'SLV' folder contains all the configurations for the simulation. Please refer to the 'configREADME' file for further details.
+
+The configuration consists of 6 configuration files. Most of the configuration files are currently specific to a single type of simulation. Please note that the configuration system may be simplified and merged to suite a more general need in the future releases. The configuration files are:
+1. agentConfig
+2. machineConfig
+3. disasterConfig
+4. hospitalConfig
+5. vehicleConfig
+6. emergencyVehicleConfig
+
+Agent Configuration File
+
+
+* The first line is the total number of agents in the system. It includes the agents of different types. It is an integer number.
+
+* Second line is the Latitude for the North West GIS co-ordinate of a imaginary bounding box within which the simulation takes place. GIS co-ordinates are of type double.
+
+* Third line is the Longitude for the North West GIS co-ordinate of a imaginary bounding box within which the simulation takes place. GIS co-ordinates are of type double.
+
+* Fourth line is the Latitude for the South East GIS co-ordinate of a imaginary bounding box within which the simulation takes place. GIS co-ordinates are of type double.
+
+* Fifth line is the Latitude for the South West GIS co-ordinate of a imaginary bounding box within which the simulation takes place. GIS co-ordinates are of type double.
+
+*The Person Care Taker agents are controllers for the agents of type Person that simulates people movement. This is one of the specific parts of the platform that is specific to crowd simulations. The sixth line is the number of Person Care Taker agents, a integer number.
+
+
+Configuring the Machine File
+
+The machine configuration file contains details for establishing communication among the different CareTakerAgents using RAbbitMQ.
+
+1. Each line is written in the following type:
+	type : QueueName : UserName : Password : VirtualHost : Port : Exchange : RoutingKey
+
+2. type is the type of CateTakerAgent depending on the type of agents it handles. It an integer value whose value is set in Constants.java (See below for details). The current system supports the following types.
+	People CTA = 1
+	Vehicle CTA = 2
+	Traffic Light CTA = 3
+
+3. QueueName is the name of the RabbitMQ queue that the CareTaker creates. The name is a character string.
+
+4. UserName is the account username to access the RabbitMQ queue. The username is a character string.
+
+5. Password is the password corresponding to username to access the RabbitMQ queue. The password is a character string.
+
+6. VirtualHost is the name of the virtual host on the RabbitMQ server. The virtual host is a character string.
+
+7. Port is the port on which the RabbitMQ server is running. The port number is a integer value.
+
+8. RoutingKey is the routing key used for communication by RabbitMQ queues. This is a string value.
+
+The following parts of the configuration is specific to one type of simulation. This can be ignored if a disaster situation is not being simulated.
+
+Editing the Disaster Configuration File
+
+This configuration is used to run disaster simulation. Its a common event that is multi-casted to agents. This method will be made more general in future releases.
+First line is number of disasters, an integer number.
+
+
+The disaster configuration is stored in the following form.
+
+	lat : lon : intensity : time
+	
+	* lat is the latitude GIS co-ordinate of the disaster. This is a float value.
+	* lon is the longitude GIS co-ordinate of the disaster. This is a float value.
+	* intensity is the intensity of disaster on a scale of 1 to 10. This is a integer value between 1 to 10.
+	* time is the time at which the disaster is triggered. This is the number of ticks elapsed after the simulation has started. This is an integer value.
+
+Editing the Hospital Configuration File
+
+This file contains information on hospitals in the imaginary bounding box within which the simulation takes place.
+
+* First line is the total number of hospital facilities.
+* The hospital configuration is stored in the following format
+	lat: lon: name : address : capacity
+
+	- lat is the latitude GIS co-ordinate of the hospital. This is a float value.
+	- lon is the longitude GIS co-ordinate of the hospital. This is a float value.
+	- name is the name of the hospital given as a string value.
+	- address is the postal address of the hospital given as a string value.
+	- capacity is the capacity of the hospitals in terms of patients that the hospital can hold. This is an integer value.
+
+Editing the Vehicle Configuration File
+
+This file contains information on civilian vehicles in the imaginary bounding box within which the simulation takes place.
+
+The only line in the file defines the number of civilian vehicles.
+
+Editing the Emergency Vehicle Configuration File
+
+This configuration file provides information on emergency service vehicles that may be available during the simulation. 
+
+* Each line is about the a given type of vehicle. The type is interpreted as follows:
+	- The first line gives the number of ambulances
+	- The second line gives the number of police vehicles
+	- The third line gives the number of fire service vehicles
+	
+* The Ambulance vehicle line contains the number of ambulance in each hospital in the following format:
+ number of ambulances in hospital 1: number of ambulances in hospital 2 ... 
+ The hospitals are corresponding to the hospitals listed in the hospitalConfig file.
+
+Constants.java
+
+Please generate the corresponding javadoc for the code to find more details about modifying this file. The only value that has to be set manually is the ip address of the local machine. Please change the value of public final String localHost = "0.0.0.0" to the machine's local IP. This operation will be made automatic in the future releases.

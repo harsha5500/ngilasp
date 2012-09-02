@@ -1,0 +1,181 @@
+Introduction
+
+Complex systems Complex Systems consist of various entities interacting in on-linear ways to produce intractable system behaviour or emergent emergent behaviour. This intractable nature of emergent behaviours makes it hard to study and model complex systems. One of the ways in which complex systems can be studied is to break the system down to its component subsystems. These component sub-systems are then modeled as individual systems or agents and allowed to interact with one another. These interactions result in some form of emergent behaviour which is usually a subset of the emergent behaviour of the real system. Given that the emergent behavious of the real system is unpredictable, establishing the extent to which the 'modeled' behaviour resembles or captures the real system is hard to establish, and out of the scope of this document. The assumption, based on existing literature is that agent based models and systems are a great means of understanding and representing complex systems.
+
+The key advantage of using an agent based system to represent a complex system is that individual subsystems are observed in greater detail. The interactions and emergent behaviour expressed by the model is tractable and allows one to study complex systems in greater detail.
+
+Henceforth, agent will refer to a subsystem of a complex system that is modelled at a chosen granularity.
+Parts of a Software Platform for Agent Based Simulation
+
+An agent based simulation framework allows one to define agents i.e. to define the functions, parameters and objectives of the individual subsystems in a complex system. The functions describe the capabilities and the tasks that these agents can perform. The framework is also responsible for the communication between these agents.
+
+The following are the major componetns of Gestalt
+ Agent Definition Mechanism
+ Event Generator or System Driver
+ Communication Layer
+ Visualization or Output Module
+Agent Definition Mechanism
+
+Agent based simulation frameworks provide a template for defining a wide variety of agent types. An agent of a particular type has a set of goals and can perform a set of defined actions. At any given point of time there may be different types of agents and any number of individual agents of the same or different type present in a system.
+
+Agents can perform a set of actions, each of which will change the state of the
+system. The agents perform these actions in order to achieve their individual goals or objectives. The choice of the action depends on the type of agent defined, its constraints and incentives. Thus, by defining different goals for the agents and varying their actions and other parameters, different types of agents can be defined. The agent platform must enable the definition and creation 
+of a number of agent types, and a large number of agents of each type. 
+Event Generator or System Driver
+
+The event generator or system driver module generates signals at appropriate intervals to drive the entire system forward. The signals can either be clock signals generated at regular intervals or they can be generated after the system is in a certain state. All agents are aware of the signal once it is generated and
+react to it depending on their description.
+Communication Layer
+
+Messages represent the interactions among agents, which are responsible for the emergence of group behaviours. Other emergent behaviour may also be observed because of the communication between agents. The communication layer allows the agents to communicate with one another. This layer is also used to relay event signals to all the agents. The agents are free to define their own protocols for communication, or choose from existing ones. The function of the communication layer is only to transfer a message from one agent to one or more agents without
+interpreting the message content. This is a key requirement as this allows for enormous flexibility in the type of communication, and the platform chosen for defining the agents.
+Visualization or Output Module
+
+The visualization or the output module displays the result of the simulation using visual aids such as graphs and images. The visualization helps us to understand the various interactions that are taking place among the agents. Graphs allow us to study the trends in system parameters during and after the simulation. Visualizations will also us to analyse the system in a bottom-up as well as top-down manner. 
+
+Some of the other agent framework capabilities include 
+An ontology framework
+A Yellow page service to locate agents
+Agent transportation capability to move agents between different frameworks
+Logging and tracing agents and events
+
+These capabilities although useful (and sometimes required) are either implemented using the above mentioned essential modules or developed as an extension. By keeping the essential modules flexible, the framework can be extended to include other services. The next section elaborates on the requirements and constraints placed on the agent frameworks for large scale simulations.
+Architecture
+Overview
+
+The framework provides infrastructure to create agents, agent behaviour, messaging, data storage, output and logging. A Care Taker Agent (CTA) is the main entity that runs on a machine (node).
+
+The components of the framework are
+CTAs
+Agents
+Message Queues
+Datastore
+Output Module
+Logging
+Care Taker Agent
+
+CTA is a container within which agents live and execute their behaviours. All agents in a single CTA are necessarily of the same type. Hence, a simulation with four types of agents requires four different CTAs. CTAs communicate using asynchronous message queues. A CTA is responsible for the following
+Agent creation.
+Inter agent messaging.
+Inter CTA messaging.
+Writing simulation output.
+Gracefully shutting-down the simulation locally.
+Agents
+
+An agent represents a real world or abstract entity which is a vital actor in the simulation. Agents have a list of attributes which define the agent and their uniqueness with respect to other agents of the same type.
+Agent Attributes
+
+Agent attributes is a abstract class. For a particular type of Agent (e.g. Person) the class has to to extended and required set of attributes defined. The values of the attributes could be stored in a database or in a XML file.
+Agent Behaviour
+
+Agents have objectives, beliefs and preferences or biases by which they exist in the system. To achieve its objective an agent has to undertake certain actions to manipulate its data, interact with other agents etc, this is done through actions calls behaviours. An agent may have one or more behaviours behaviour which are executed in a defined order.
+Messaging
+
+The messaging subsystem (or communication channel) is a vital component in a distributed system which facilitates information sharing and synchronisation. In our framework the communication is entirely confined to CTAs, individual agents can communicate using their CTA as a proxy. Our messaging system should satisfy the following requirements
+High throughput - A few thousand messages should be delivered, end-to-end, in a second.
+High availability - The system should not crash under high load.
+Asynchronous messaging - Synchronous messaging will slow down a large system. A asynchronous technique which works like mail boxes is desired.
+Platform independence - It should not be tied to a particular programming language or a operating system, this will enable us to build heterogeneous CTAs.
+
+The types of messages we use are
+Data - e.g. agent attributes, position of emergency vehicles, traffic signal state etc.
+Timing messages - e.g. I am done with the current tick.
+Shutdown - e.g. I am done with work.
+
+RabbitMQ is our message queueing system of choice, it is based on the Advanced Message Queuing Messaging Protocol (AMQP) standard and is open source under Mozilla Public License. RabbitMQ has interfaces in languages such as Java, .Net,
+Python and others and supports multiple schemes of communication including 1-to-1, 1-to-many, Store-and-forward, file-streaming and others. Messages are transmitted in the form of binary data and hence any form of encryption/decryption has to be implemented at the client side.
+Datastore
+
+The simulation requires a datastore for reasons such as pre-computed paths or sharing large volumes of data among agents/CTAs. The framework interfaces with a GIS database (Postgresql with PostGIS), other databases could be used by changing the appropriate properties files and drives. The road network is stored as vector data. The pgRouting plugin enables to run shortest path algorithms on the network, it also allows to specify one-way roads.
+Output Module
+
+The simulation should output its result so that it can be analysed or visualized. In our framework the output visualization module is decoupled from the simulation engine. This is done to achieve the following
+Enable visualization on multiple remote clients.
+Enable visualization on thin clients.
+Replay the same output as and when required.
+
+The output of the our framework is in a form of a KML file which can be visualized on Google Earth. Google Earth is a 3D virtual earth software which supports visualization and animation of spatial data using KML files. The KML format contains spatial data and presentation information.
+Logging
+
+The framework uses log4j, a java based logging utility under Apache License, Version 2.0 to provide detailed logging of all system level actions by the various entities.
+Implementation
+
+The framework is implemented in Java. Java provides ease of programming and has a wide range of helpful libraries. Configuration such as the number of agents that each CareTakerAgent will handle, the geographic bounding box, properties of the disaster etc are stored in text files.
+Care Taker Agent
+
+CareTakerAgent is an abstract class. The CareTakerAgent is responsible for running agents, writing the output, communicating with other CTAs and so on.
+Agent
+
+Agents are implemented as Java threads. Agent is an abstract class with
+atleast the following attributes:
+AID - a unique identifier for the agent.
+objectiveFlag - indicates whether the agent has achieved its objective.
+statusFlag - a true value indicates that the agent has finished his task for the current tick, and a false value indicates that the agent hasn't finished execution..
+compositeBehaviour - one or more behaviours which the agent will run depending on the agents preferences and objectives.
+
+The framework enables the definition of several types of agents, and the creation of a large number of agents of each type. 
+
+Every agent will have a set of behaviours, and choose to exhibit(run) a particular behaviour based on its internal logic. Behaviours are implemented using the composite design pattern. Behaviour is an abstract class with a method called 'run', which receives all the parameters of the agent in an object of type AgentAttributes. Every agent type will have its specific behaviour implementation, for example PersonMoveBehaviour (to move a person agent), VehicleMoveBehaviour etc.
+
+The parameter (AgentAttributes) defines the current state of the agent. For example, a person agent will have attributes like health, speed, curiosity etc. 
+AgentAttributes is itself an abstract class, and each agent type will have
+its own implementation of this class. Person agent type will have personAttributes, Vehicle will have VehicleAttributes and so on.
+
+Every agent contains a 'run' method. While the implementation of this method, other attributes of the agent, its preferences and behaviours depend on the simulation to be run, the logic of the agent will be internalised within this method.
+Messaging
+
+Each CTA runs in its own JVM and inter CTA communication is through the RabbitMQ message queue. Every CTA has an input queue, which is identified by the host IP address and a queue name. To communicate with another CTA, a CTA has to write the message to the recipients message queue. The CTA is notified as and when a new message is received through a listener implemented in a method called receivedMessage(Message).
+Message
+
+A message is a serializable class with the following fields
+type - is an integer and identifies the type of message
+content - is any Java Object
+sender - is a string and identifies the sender (is the host name of the sender)
+QueueManager
+
+Manages the delivery of a message to the recipient and listening to incoming messages.
+queueUser - the CTA using this queue.
+queueParameters - parameters of the input queue for the CTA 
+QueueUser
+
+This is an interface using which any class can receive messages on an input queue. Any class which wants to receive and send messages should implement this interface. QueueUser enforces the 'Observer' design pattern on the implementing class. Every CTA (which implements QueueUser) registers with a QueueManager, and whenever a message is received queueManager notifies the CTA by calling the receivedMessage(Message) method of the CTA. Any class which wants to receive messages on an input queue should implement this interface. Observer pattern is used here. The CTA requiters with a QueueManager and on receiving a message the queueManager calls the receivedMessage(message) method of the CTA. 
+public void receivedMessage(Message message);
+QueueParameters
+
+This defines the the parameters of the input queue.
+queueName - name of the queue.
+username - username for RabbitMQ 
+password - password for RabbitMQ
+Datastore
+
+One of the requirements of the framework was to support modelling and simulation in a spatial domain. A Datastore with support for geometry data types and spatial functions - union, intersect etc was necessary. Postgresql is an open source object relational database, and the PostGIS plug-in enables spatial features for the database. The pgRouting plug-in adds routing capability. The c3p0 library is used for connection pooling, so that the database can support a number of parallel connections from a particular CTA. The following steps needs to be executed to make any changes to the Datastore
+Edit properties in db.properties file located in database.connection package
+Add the required driver to the \lib directory and add the same to the CLASSPATH
+Use a connection from the connection pool created to write and execute a 
+Classes
+
+Database related files are present in the src/database package. src/database/connections package contains the files that create a connection pool and database configuration.
+Sql.java
+
+This is a wrapper around all the required database queries.
+KML Utility
+
+This utility enables writing the output in KML, a markup language which can be understood by Google Earth. KML allows animation with points at different locations at different timestamps. The utility is implemented using JAK (Java API for KML). It takes a ArrayList of points and draws them as placemarks. KML is an XML format and JAK a parser which allows for creating and editing XMLs. JAK also enables exporting the XML into a text file, which can later be used for visualization.
+
+The KML utility also reformatts the KML files to get the data in a form which can be used as a input to the JavaFX UI.
+KmlUtility.java
+public void addPlacemarks(ArrayList latLons)
+public boolean writeFile(String filename)
+Visualization
+
+The visualization engine enables the user of the framework to view the results in a 2-dimensional space. The output of the framework can be suitably modified to any particular format, to fit the visualization engine. The visualization engine has been decoupled from the agent simulation framework, for reasons of performance and scale. However, the visualizer must be able to handle thousands of agents and geographical locations, and enable the user to move between 2-dimensional and 3-dimensional views(the 3-dimensional view can be in the form of a fly-through animation video, or the floor plan of a particular building) as and when necessary. 
+
+Given that the visualizer must handle a large number of agents, a prototype was first attempted using Processing, which is an open source language and enbironment for developing images, interactions and animations. However, this language could not scale to the requirements of the framework and was abandoned. A prototype is currently being attempted in JavaFX(http://javafx.com), which is a Java based platform for developing rich interactions and animations. JavaFX has the ability to run on desktop, browser and on mobile devices. JavaFX has the ability to handle thousands on icons on screen and to animate them.
+
+The following are the new interactive features in the JavaFX visualizer
+3D model of buildings
+FLoor plans of buildings
+Traffic junction video feed
+Twitter feed 
+News feed
+Statistics window
